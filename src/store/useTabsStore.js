@@ -17,13 +17,7 @@ const getCacheTabs = () => {
       key: defaultActiveKey,
       loading: false,
       closable: false
-    },
-    {
-      label: "aaa组件",
-      key: "/aaa",
-      loading: false,
-      closable: true
-    },
+    }
   ];
   const tabs = window.localStorage.getItem(__cache_tabs_key__);
   try {
@@ -56,6 +50,7 @@ const useTabsStore = defineStore("tabs", {
         console.log(payload)
       },
       addTab(tabItem) {
+        console.log(tabItem)
         // 内存添加
         this.editableTabs.push(tabItem);
         // 缓存更新

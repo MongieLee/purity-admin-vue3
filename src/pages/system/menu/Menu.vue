@@ -45,6 +45,7 @@ const getEmptyRecord = () => reactive({
   path: undefined, // 路由
   isLink: 0, // 是否外链
   menuType: "M", // 菜单类型
+  compPath: undefined, // 组件地址
   permission: undefined, // 权限标识
   remake: undefined, // 备注
 })
@@ -91,14 +92,14 @@ const columns = [
     customRender({text, record, index, column}) {
       return text ? "是" : "否";
     },
-    width: 80,
+    width: 120,
     align: "center"
   },
   {
     title: '权限标识',
     dataIndex: 'permission',
     key: 'age',
-    width: 80
+    width: 120
   },
   {
     title: '排序',
@@ -457,6 +458,11 @@ const delRecord = async ({id, name}) => {
                   <div>如果为外链地址请填写完整格式(^http(s)?//:w+)</div>
                 </template>
                 <a-input v-model:value="currentEditRecord.path"/>
+              </a-form-item>
+            </a-col>
+            <a-col :span="12">
+              <a-form-item name="compPath" label="组件地址" required>
+                <a-input v-model:value="currentEditRecord.compPath"/>
               </a-form-item>
             </a-col>
             <a-col :span="12">

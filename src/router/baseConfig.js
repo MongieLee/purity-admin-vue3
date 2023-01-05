@@ -52,4 +52,15 @@ const routersConfig = {
     // }
   ]
 };
+
+export const asyncConfigMap = {
+  "wrapper": () => import("@/components/emptyRouterView/EmptyRouterView.vue"),
+  "board": () => import("@/pages/board/Board.vue"),
+  "menu": () => import("@/pages/system/menu/Menu.vue"),
+  "user": () => import("@/pages/system/user/User.vue"),
+  "role": () => import("@/pages/system/role/Role.vue"),
+  "department": () => import("@/pages/system/department/Department.vue"),
+  "changePassword": () => import("@/pages/system/changePassword/ChangePassword.vue"),
+}
+
 export default routersConfig;

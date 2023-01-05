@@ -9,7 +9,6 @@ const searchForm = reactive({
   deptName: undefined,
   state: undefined
 })
-console.log('父组件')
 const emptyRecord = () => ({
   name: undefined,
   parentId: undefined,
@@ -321,7 +320,7 @@ const delRecord = async ({id, name}) => {
                :pagination="{hideOnSinglePage:true,total:paginationInfo.total}">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'action'">
-            <template v-if="record.code !== 'super_admin'">
+            <template v-if="record.code !== 'superadmin'">
                   <span>
                     <a @click="editRecord(record)">编辑</a>
                     <a-divider type="vertical"/>
@@ -361,7 +360,7 @@ const delRecord = async ({id, name}) => {
             </a-radio-group>
           </a-form-item>
           <a-form-item name="remake" label="备注">
-            <a-textarea v-model:value="currentEditRecord.remake"/>
+            <a-textarea v-model:value="currentEditRecord.description"/>
           </a-form-item>
         </a-form>
         <a-divider/>

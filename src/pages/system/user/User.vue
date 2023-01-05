@@ -25,7 +25,7 @@ const emptyRecord = () => ({
   password: undefined,
   confirmPassword: undefined,
   deptId: undefined,
-  roleIds: []
+  roleId: undefined
 })
 
 const paginationInfo = reactive({
@@ -72,8 +72,7 @@ const formRef = ref(null);
 
 const submitForm = () => {
   formRef.value.validate().then(async (values) => {
-    console.log(values)
-    console.log(currentEditRecord.value.permissionRoles)
+    values.roleIds = [values.roleId];
     const data = {...values, permissionRoles: currentEditRecord.value.permissionRoles}
     tableLoading.value = true
     const isUpdate = Boolean(currentEditRecord.value.id);
@@ -235,7 +234,7 @@ const formRules = {
     }
   }],
   deptId: [{required: true, message: "请选择所属部门"}],
-  roleIds: [{required: true, message: "请选择所属角色"}],
+  roleId: [{required: true, message: "请选择所属角色"}],
 }
 
 const delRecord = async ({id, username}) => {
@@ -360,7 +359,6 @@ const fff = (selectedKeys, e) => {
       <div>
         <a-form ref="formRef" :model="currentEditRecord" layout="horizontal" :wrapper-col="{ span:14 }"
                 :label-col="{ span:6 }" :rules="formRules">
-
           <a-form-item label="用户账号" name="username">
             <a-input v-model:value="currentEditRecord.username"/>
           </a-form-item>
@@ -375,7 +373,6 @@ const fff = (selectedKeys, e) => {
               <a-input type="password" v-model:value="currentEditRecord.confirmPassword"/>
             </a-form-item>
           </template>
-
           <a-form-item label="状态" name="status">
             <a-radio-group v-model:value="currentEditRecord.status">
               <a-radio :value="true">启用</a-radio>
@@ -387,8 +384,8 @@ const fff = (selectedKeys, e) => {
                            placeholder="请选择所属部门" show-search
                            :field-names="{children: 'children',label: 'name',value: 'id'}"/>
           </a-form-item>
-          <a-form-item name="roleIds" label="角色身份">
-            <a-select v-model:value="currentEditRecord.roleIds" :options="roleData.data" mode="multiple"
+          <a-form-item name="roleId" label="角色身份">
+            <a-select v-model:value="currentEditRecord.roleId" :options="roleData.data"
                       :field-names="	{ label: 'name', value: 'id', options: 'options' }" allow-clear
                       placeholder="请选择角色身份" show-search/>
           </a-form-item>

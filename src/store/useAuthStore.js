@@ -3,6 +3,8 @@ import AuthService from "../services/auth/auth.js";
 import router from "../router/index.js";
 import {Modal} from "ant-design-vue";
 import {clearAuthToken} from "../utils/token.js";
+import {resetDynamicRoutes} from "@/router/guards";
+import useMenuStore from "@/store/useMenuStore";
 
 const useAuthStore = defineStore("auth", {
     state: () => ({
@@ -23,8 +25,10 @@ const useAuthStore = defineStore("auth", {
           okText: "确定",
           cancelText: "取消",
           async onOk() {
-            console.log(123)
             clearAuthToken();
+            const menuStore = useMenuStore()
+            resetDynamicRoutes(menuStore.menus)
+            menuStore.clearStoreMenus();
             await router.push("/login");
           }
         })

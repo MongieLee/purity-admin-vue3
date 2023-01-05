@@ -20,12 +20,18 @@ import useAuthStore from "@/store/useAuthStore.js";
 import {exitFullScreen, isFullScreen, openFullScreen} from "../utils/fullScreen.js";
 import {Modal} from "ant-design-vue";
 import useSettingStore from "../store/useSettingStore.js";
+import MenuService from "../services/menu/menu";
+import useMenuStore from "@/store/useMenuStore.js";
 
 const isFullScreenSelf = ref(false);
 const collapsed = ref(false);
 const authStore = useAuthStore();
 const router = useRouter();
-
+const menuStore = useMenuStore();
+console.log(menuStore);
+console.log(menuStore.menus)
+console.log(menuStore.setMenus)
+// menuStore.setMenus();
 const logout = () => {
   authStore.logout();
 }

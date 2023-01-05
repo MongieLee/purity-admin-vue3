@@ -8,7 +8,7 @@ import router from '@/router';
 import * as Qs from 'qs';
 
 const instance = axios.create({
-  baseURL: "http://192.168.8.58:8080",
+  baseURL: "http://127.0.0.1:8080",
   // timeout: 4000
 });
 
@@ -121,8 +121,6 @@ const refreshToken = () => {
 instance.interceptors.response.use((response) => {
   // 200状态码会进入成功回调
   // 业务逻辑错误，success为false
-  console.log('response');
-  console.log(response)
   return response.data;
 }, (error) => {
   console.log('拦截器的error')

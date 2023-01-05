@@ -6,7 +6,7 @@ class MenuService {
    * @param id
    */
   static getMenuById(id) {
-    return getRequest(`api/v1/menu/${id}`, {id});
+    return getRequest(`api/v1/menu/getUserMenus/${id}`);
   }
 
   /**
@@ -19,8 +19,8 @@ class MenuService {
   /**
    * 获取当前用户自身菜单
    */
-  static getMenuTreeOfSelf(userId) {
-    return getRequest('api/v1/menu/getUserMenus', {id: userId});
+  static getMenuTreeOfSelf() {
+    return getRequest('api/v1/menu/getUserMenus');
   }
 
   /**
