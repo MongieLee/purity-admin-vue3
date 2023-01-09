@@ -6,6 +6,7 @@ import {clearChildren} from "../../../utils/index.js";
 import {message} from "ant-design-vue";
 import Department from "../../../services/department/department.js";
 import RoleService from "../../../services/role/role.js";
+import useTreeData from "@/hooks/useDeptTree";
 
 
 const emptyRecord = () => ({

@@ -366,7 +366,7 @@ const delRecord = async ({id, name}) => {
         <a-divider/>
         <div>菜单及按钮权限分配</div>
         <a-tree :selectable="false" :tree-data="treeData" v-model:checked-keys="currentEditRecord.permissionRoles"
-                default-expand-all checkable
+                default-expand-all checkable show-line
                 :field-names="{children:'children',title:'name',key:'id'}"/>
       </div>
       <template #footer>

@@ -1,3 +1,8 @@
+<script>
+export default {
+  name: 'fuck'
+}
+</script>
 <script setup name="sysmenu">
 import {computed, onMounted, reactive, ref} from "vue";
 import {SettingOutlined, SyncOutlined, ColumnHeightOutlined} from "@ant-design/icons-vue";
@@ -45,7 +50,7 @@ const getEmptyRecord = () => reactive({
   path: undefined, // 路由
   isLink: 0, // 是否外链
   menuType: "M", // 菜单类型
-  compPath: undefined, // 组件地址
+  compName: undefined, // 组件地址
   permission: undefined, // 权限标识
   remake: undefined, // 备注
 })
@@ -56,12 +61,12 @@ const columns = [
     key: 'name',
     width: 220
   },
-  {
-    title: '图标',
-    dataIndex: 'icon',
-    key: 'age',
-    width: 80
-  },
+  // {
+  //   title: '图标',
+  //   dataIndex: 'icon',
+  //   key: 'age',
+  //   width: 80
+  // },
   {
     title: '类型',
     dataIndex: 'menuType',
@@ -255,10 +260,7 @@ const addRecord = () => {
   currentEditRecord.value = getEmptyRecord();
 }
 const modalForm = ref(null);
-const onFinish = (values) => {
-  console.log(values);
-  console.log('get ref value:')
-  console.log(modalForm.value)
+const onFinish = () => {
   modalForm.value.validate().then(async (values) => {
     console.log("表单内容：");
     console.log(values);
@@ -335,7 +337,7 @@ const delRecord = async ({id, name}) => {
       <div style="display: flex;justify-content: space-between;align-items: center;padding: 0 0 16px">
         <div>菜单列表</div>
         <div style="display: flex;align-items: center" class="table-extension">
-          <a-button type="primary" @click="addRecord">新增菜单</a-button>
+          <a-button v-permission="['menu:create']" type="primary" @click="addRecord">新增菜单</a-button>
           <a-tooltip title="刷新">
             <sync-outlined @click="search" :disable="tableLoading" style="font-size: 16px"/>
           </a-tooltip>
@@ -389,12 +391,14 @@ const delRecord = async ({id, name}) => {
           </template>
           <template v-else-if="column.key === 'action'">
                   <span>
-                    <a @click="editRecord(record)">编辑</a>
+                    <a v-permission="['menu:edit']" @click="editRecord(record)">编辑</a>
                     <a-divider type="vertical"/>
-                    <a-popconfirm :title="`确定要删除${record.name}吗`" ok-text="确定" cancel-text="取消"
-                                  @confirm="delRecord(record)">
-                      <a class="ant-dropdown-link">删除</a>
-                    </a-popconfirm>
+                    <div v-permission="['menu:delete']">
+                      <a-popconfirm :title="`确定要删除${record.name}吗`" ok-text="确定" cancel-text="取消"
+                                    @confirm="delRecord(record)">
+                        <a class="ant-dropdown-link">删除</a>
+                      </a-popconfirm>
+                    </div>
                   </span>
           </template>
           <template v-if="column.key === 'state'">
@@ -407,12 +411,12 @@ const delRecord = async ({id, name}) => {
     <a-modal mask-closable @ok="onFinish" width="40%" @cancel="cancelModal" cancel-text="取消" ok-text="确认"
              :visible="modalVisible" :confirm-loading="tableLoading"
              :title="`${currentEditRecord?.id?'编辑':'新增'}菜单`">
-      <a-form ref="modalForm" @finish="onFinish" :model="currentEditRecord" layout="horizontal"
+      <a-form ref="modalForm" :model="currentEditRecord" layout="horizontal"
               :labelCol="{style:{width:'100px'}}" :rules="formRules">
         <a-row>
           <a-col :span="24">
             <a-form-item name="name" label="菜单名称">
-              <a-input v-model:value="currentEditRecord.name"/>
+              <a-input autocomplete="off" v-model:value="currentEditRecord.name"/>
             </a-form-item>
           </a-col>
           <a-col :span="24">
@@ -439,7 +443,7 @@ const delRecord = async ({id, name}) => {
           </a-col>
           <a-col :span="12">
             <a-form-item name="permission" label="权限标识">
-              <a-input-number v-model:value="currentEditRecord.permission" style="width: 100%"/>
+              <a-input v-model:value="currentEditRecord.permission" style="width: 100%"/>
             </a-form-item>
           </a-col>
 
@@ -461,8 +465,8 @@ const delRecord = async ({id, name}) => {
               </a-form-item>
             </a-col>
             <a-col :span="12">
-              <a-form-item name="compPath" label="组件地址" required>
-                <a-input v-model:value="currentEditRecord.compPath"/>
+              <a-form-item name="compName" label="组件名称" required>
+                <a-input v-model:value="currentEditRecord.compName"/>
               </a-form-item>
             </a-col>
             <a-col :span="12">
@@ -471,8 +475,8 @@ const delRecord = async ({id, name}) => {
                   <div>是否出现在菜单栏，不影响地址访问</div>
                 </template>
                 <a-radio-group v-model:value="currentEditRecord.visible">
-                  <a-radio :value="1">显示</a-radio>
-                  <a-radio :value="0">隐藏</a-radio>
+                  <a-radio :value="true">显示</a-radio>
+                  <a-radio :value="false">隐藏</a-radio>
                 </a-radio-group>
               </a-form-item>
             </a-col>
@@ -482,8 +486,8 @@ const delRecord = async ({id, name}) => {
                   <div>是否出现在菜单栏及能否地址访问</div>
                 </template>
                 <a-radio-group v-model:value="currentEditRecord.state">
-                  <a-radio :value="1">正常</a-radio>
-                  <a-radio :value="0">停用</a-radio>
+                  <a-radio :value="true">正常</a-radio>
+                  <a-radio :value="false">停用</a-radio>
                 </a-radio-group>
               </a-form-item>
             </a-col>

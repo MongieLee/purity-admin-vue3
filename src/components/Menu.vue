@@ -21,20 +21,16 @@ const state = reactive({
 })
 
 const menuOnClick = ({item, key, keyPath}) => {
-  console.log(item)
-  console.log(keyPath)
-  console.log(key)
   if (linkRef.test(key)) {
     window.open(key);
   } else {
     router.push(key);
   }
-  // router.push({name: name});
 }
 
 const route = useRoute();
 watch(route, (nextPath, prePath) => {
-  const paths = nextPath.matched[nextPath.matched.length - 1].path.split("/").filter(i => Boolean(i)).map(i => ("/" + i))
+  const paths = nextPath.matched[nextPath.matched.length - 1].path.split("/").filter(Boolean).map(i => ("/" + i))
   state.selectedKeys = [nextPath.path]
   state.openKeys = paths.slice(0, -1)
 }, {
@@ -63,14 +59,16 @@ watch(route, (nextPath, prePath) => {
     <!--      <a-menu-item key="/changePassword">修改密码</a-menu-item>-->
     <!--    </a-sub-menu>-->
     <template v-for="menu in menuStore.menus || []">
-      <a-menu-item v-if="menu.children.length === 0" :key="menu.path">
+      <a-menu-item v-if="menu.state && menu.visible && menu.children.length === 0" :key="menu.path">
         {{ menu.name }}
       </a-menu-item>
-      <a-sub-menu v-else :key="menu.path">
+      <a-sub-menu v-else-if="menu.state && menu.visible && menu.children.length > 0" :key="menu.path">
         <template #title>{{ menu.name }}</template>
-        <a-menu-item v-for="child in menu.children" :key="child.path">
-          {{ child.name }}
-        </a-menu-item>
+        <template v-for="child in menu.children">
+          <a-menu-item v-if="child.state && menu.visible" :key="child.path">
+            {{ child.name }}
+          </a-menu-item>
+        </template>
       </a-sub-menu>
     </template>
   </a-menu>

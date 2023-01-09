@@ -3,6 +3,9 @@ const path = require("path")
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  devServer:{
+    port: 7777
+  },
   configureWebpack: {
     resolve: {
       alias: {

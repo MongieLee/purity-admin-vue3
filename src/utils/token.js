@@ -24,7 +24,7 @@ const inspectTokenValidity = () => {
     validTime = Number(getToken(__expires__key__));
   } catch (e) {
     console.error('解析时效失败');
-    console.err(e.message);
+    console.error(e.message);
   }
   return token ? validTime >= Date.now() : false;
 };

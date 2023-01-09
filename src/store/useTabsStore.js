@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {broadName} from "../router/index.js";
 import {__cache_tabs_key__} from "../utils/token.js";
 
-const defaultActiveKey = '/board';
+const defaultActiveKey = '/dashboard';
 
 const cache_tabs_key = 'cache_tabs';
 
@@ -13,7 +13,7 @@ const cache_tabs_key = 'cache_tabs';
 const getCacheTabs = () => {
   const defaultTabs = [
     {
-      label: broadName,
+      label: "首页",
       key: defaultActiveKey,
       loading: false,
       closable: false

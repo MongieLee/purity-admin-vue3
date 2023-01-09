@@ -39,7 +39,7 @@ const columns = [
       <a-divider/>
       <a-table :dataSource="dataSource" :columns="columns"/>
     </a-card>
-
+    <a-button v-permission="['fuck']">123</a-button>
   </div>
 </template>
 

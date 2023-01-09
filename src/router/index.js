@@ -16,7 +16,7 @@ export const routes = [
       title: "首页",
     },
     component: () => import("@/layout/MainLayout.vue"),
-    redirect: "/board",
+    redirect: "/dashboard",
     children:[
       {
         path: '/:pathMatch(.*)*',

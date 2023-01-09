@@ -8,8 +8,8 @@ import UserService from "../../../services/user/user.js";
 import DepartmentService from "../../../services/department/department.js";
 import useDeptTree from "../../../hooks/useDeptTree.js";
 
-const {data, err, loading} = useDeptTree();
-console.log(data)
+const {data:deptTreeData, err, loading} = useDeptTree();
+console.log(deptTreeData)
 console.log(err)
 console.log(loading)
 
