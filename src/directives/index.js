@@ -7,9 +7,7 @@ import useMenuStore from "@/store/useMenuStore";
  */
 function checkPermission(el, binding) {
   const {value} = binding
-  console.log(value)
   if (value instanceof Array) {
-    // const hasPermission = useMenuStore().permissions
     const {permissions} = useMenuStore();
     const hasPermission = value.some(item => permissions.includes(item));
     if (!hasPermission) {
@@ -28,15 +26,6 @@ function registerDirectives(app) {
   app.directive("permission", {
     mounted(el, binding) {
       checkPermission(el, binding);
-      // const {value} = binding;
-      // const originDisplay = el.style.display
-      // el.classList.add('permission-hidden')
-      // setTimeout(() => {
-      //   if (store.state.auth.permissionCollection.includes(value)) {
-      //     // el.remove();
-      //     el.classList.remove('permission-hidden')
-      //   }
-      // }, 100);
     },
     // updated(el, binding) {
     //   checkPermission(el, binding);

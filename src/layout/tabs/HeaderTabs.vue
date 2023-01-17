@@ -65,7 +65,7 @@ const selectHandlers = {
       const deleteCount = index - 1;
       tabsStore.batchRemoveTab(1, deleteCount);
       if (!tabsStore.editableTabs.some(i => i.key === route.path)) {
-        router.push(pageKey)
+        router.push(pageKey);
       }
     }
   },

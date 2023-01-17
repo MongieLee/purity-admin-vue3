@@ -4,11 +4,11 @@ export const __auth_refresh_token_key__ = "";
 export const __cache_tabs_key__ = "cache_tabs";
 export const __user_info__ = "user_info";
 
-const setToken = (key, value) => {
-  localStorage.setItem(key, value);
-};
+const setToken = (key, value) => localStorage.setItem(key, value);
 
 const getToken = (key) => localStorage.getItem(key);
+
+const removeToken = (key) => localStorage.removeItem(key);
 
 const setAuthToken = (token, expires) => {
   setToken(__auth_token_key__, token);
@@ -43,4 +43,5 @@ export {
   setAuthToken,
   inspectTokenValidity,
   clearAuthToken,
+  removeToken
 };

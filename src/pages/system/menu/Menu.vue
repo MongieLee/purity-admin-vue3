@@ -9,6 +9,7 @@ import {SettingOutlined, SyncOutlined, ColumnHeightOutlined} from "@ant-design/i
 import MenuService from "../../../services/menu/menu.js";
 import AllIcon from "@/components/AllIcon.vue";
 import {Form, message} from "ant-design-vue";
+import {shallowCopy} from "@/utils";
 
 const searchForm = reactive({
   deptName: undefined,
@@ -207,8 +208,7 @@ const modalVisible = ref(false);
 const currentEditRecord = ref(getEmptyRecord());
 const editRecord = (record) => {
   modalVisible.value = true;
-  console.log(record)
-  currentEditRecord.value = record;
+  currentEditRecord.value = shallowCopy(record);
 }
 
 const cancelModal = () => {

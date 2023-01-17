@@ -1,10 +1,10 @@
 import {defineStore} from "pinia";
-import {getToken} from "@/utils/token.js";
+import {getToken, removeToken, setToken} from "@/utils/token.js";
 
 const STORE_MENUS_KEY = "permission_menus";
 
 /**
- * 获取权限菜单
+ * 获取初始化权限菜单权限菜单
  * @returns {*|null}
  */
 const getInitMenus = () => {
@@ -23,13 +23,25 @@ const useMenuStore = defineStore("menu", {
         permissions: []
     }),
     actions: {
+        /**
+         * 设置菜单数据
+         * @param data
+         */
         setMenus(data) {
+            setToken(STORE_MENUS_KEY,data);
             this.menus = data;
         },
+        /**
+         * 清除菜单数据
+         */
         clearStoreMenus() {
-            window.localStorage.removeItem(STORE_MENUS_KEY);
+            removeToken(STORE_MENUS_KEY);
             this.setMenus(null);
         },
+        /**
+         * 设置菜单按钮权限集合
+         * @param data
+         */
         setPermissions(data) {
             this.permissions = data;
         }

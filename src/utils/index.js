@@ -37,4 +37,17 @@ function clearChildren(data = []) {
   })
 }
 
-export {timeFix, downloadFile, clearChildren};
+/**
+ * 浅拷贝
+ * @param object
+ * @returns {object}
+ */
+function shallowCopy(object = {}) {
+  try {
+    return JSON.parse(JSON.stringify(object));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export {timeFix, downloadFile, clearChildren, shallowCopy};
