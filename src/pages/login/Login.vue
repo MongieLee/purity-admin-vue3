@@ -37,7 +37,7 @@ const onFinish = async () => {
         <span class="topic">{{ topic }}</span>
       </div>
       <p class="minor-title">{{ minorTitle }}</p>
-      <a-form :model="formState" name="basic" autocomplete="off" @finish="onFinish">
+      <a-form :model="formState" autocomplete="off" @finish="onFinish">
         <a-form-item name="username"
                      :rules="[{ required: true, message: '请输入用户名' }]">
           <a-input v-model:value="formState.username">
