@@ -7,8 +7,8 @@ import {message} from "ant-design-vue"
 import AuthService from "../../services/auth/auth.js";
 
 const router = useRouter();
-const topic = '后台管理系统'
-const minorTitle = '管理系统';
+const topic = 'Purity Admin'
+const minorTitle = '一个简单的后台模板';
 
 const formState = reactive({
   username: undefined,
@@ -40,14 +40,14 @@ const onFinish = async () => {
       <a-form :model="formState" autocomplete="off" @finish="onFinish">
         <a-form-item name="username"
                      :rules="[{ required: true, message: '请输入用户名' }]">
-          <a-input v-model:value="formState.username">
+          <a-input v-model:value="formState.username" placeholder="默认账号为：superadmin">
             <template #prefix>
               <user-outlined/>
             </template>
           </a-input>
         </a-form-item>
         <a-form-item name="password" :rules="[{ required: true, message: '请输入密码' }]">
-          <a-input-password v-model:value="formState.password">
+          <a-input-password v-model:value="formState.password" placeholder="默认账号为：123qwe">
             <template #prefix>
               <lock-outlined/>
             </template>

@@ -390,16 +390,15 @@ const delRecord = async ({id, name}) => {
             {{ record.name }}
           </template>
           <template v-else-if="column.key === 'action'">
-                  <span>
-                    <a v-permission="['menu:edit']" @click="editRecord(record)">编辑</a>
-                    <a-divider type="vertical"/>
-                    <div v-permission="['menu:delete']">
-                      <a-popconfirm :title="`确定要删除${record.name}吗`" ok-text="确定" cancel-text="取消"
-                                    @confirm="delRecord(record)">
-                        <a class="ant-dropdown-link">删除</a>
-                      </a-popconfirm>
-                    </div>
-                  </span>
+            <a-space>
+              <a v-permission="['menu:edit']" @click="editRecord(record)">编辑</a>
+              <div v-permission="['menu:delete']">
+                <a-popconfirm :title="`确定要删除${record.name}吗`" ok-text="确定" cancel-text="取消"
+                              @confirm="delRecord(record)">
+                  <a class="ant-dropdown-link">删除</a>
+                </a-popconfirm>
+              </div>
+            </a-space>
           </template>
           <template v-if="column.key === 'state'">
             <a-tag v-if="record.state" :color="'green'">正常</a-tag>

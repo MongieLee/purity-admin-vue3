@@ -83,8 +83,6 @@ function findBtnPermissions(menus) {
 function getBtn(list, result) {
   list.map(i => {
     if (i.menuType === menuTypeEnum.button) {
-      console.log(i)
-      console.log("你是按钮")
       result.push(i.permission);
     }
     if (i.children.length) {
